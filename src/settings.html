@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gif Display</title>
+    <style>
+      body {
+        min-width: 300px;
+        font-size: 15px;
+      }
+
+      input {
+        margin: 5px;
+        outline: none;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #303030;
+          color: #fff;
+        }
+      }
+
+      .column-container {
+        display: flex;
+        flex-direction: column; /* 縦方向に配置 */
+        justify-content: center; /* 水平方向の中央揃え */
+        align-items: center; /* 垂直方向の中央揃え */
+      }
+
+      .row-container {
+        display: flex;
+        flex-direction: row; /* 縦方向に配置 */
+        justify-content: center; /* 水平方向の中央揃え */
+        align-items: center; /* 垂直方向の中央揃え */
+        gap: 10px;
+      }
+
+      .clickable {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <hr color="#EEEEEE" />
+    <h3>Settings</h3>
+    <div>
+      <span>File:
+      <select id="file">
+      </select>
+      <span id="folder" class="clickable">📁</span>
+      <p>
+      <span>Size
+      <select id="size">
+        <option>120</option>
+        <option>240</option>
+        <option>360</option>
+        <option>480</option>
+        <option>600</option>
+        <option>720</option>
+        <option>840</option>
+        <option>960</option>
+        <option>1080</option>
+        <option>1200</option>
+      </select>
+      <p>
+      <hr>
+      <div class="column-container">
+        <img id="image" width="200"/>
+      </div>
+      <div class="row-container">
+        <button id="start">START</button>
+        <button id="clear">CLEAR</button>
+      </div>
+    </div>
+    <script src="settings.js"></script>
+  </body>
+</html>
