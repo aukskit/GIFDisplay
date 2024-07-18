@@ -12,7 +12,9 @@
     "productName": "GIFDisplay",
     "files": [
       "src/*",
-      "resources/*"
+      "resources/icon/*",
+      "resources/images/*",
+      "resources/userData/*"
     ],
     "win": {
       "target": [
