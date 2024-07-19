@@ -136,9 +136,9 @@ if (Context === undefined) {
 
     this.openFolder = async function () {
       const imagesFolderPath = await window.electronAPI.getPath(
-        "resources/images",
-        ""
+        "resources/images"
       );
+      // console.log(imagesFolderPath);
       window.electronAPI.openFolder(imagesFolderPath);
     };
 

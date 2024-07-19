@@ -43,6 +43,7 @@ function createWindow() {
   mainWindow.on("blur", () => {
     if (!settingsWindow.isFocused()) {
       settingsWindow.hide();
+      mainWindow.show();
     }
   });
 }
@@ -167,11 +168,16 @@ app.whenReady().then(() => {
     }
   });
 
-  ipcMain.handle("get-path", async (event, directory, filename) => {
+  ipcMain.handle("get-path", async (event, directory, filename = null) => {
     try {
-      const directoryPath = path.join(__appPath, directory);
-      const filePath = path.join(directoryPath, filename);
-      return filePath;
+      if (filename != null) {
+        return path.join(__appPath, directory, filename);
+      } else {
+        if (__appPath.includes("app.asar")) {
+          return path.join(__appPath, "../..", directory);
+        }
+        return path.join(__appPath, directory);
+      }
     } catch (err) {
       console.error("Error getting file path:", err);
       throw err;
