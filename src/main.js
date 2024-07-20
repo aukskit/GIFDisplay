@@ -37,14 +37,22 @@ function createWindow() {
     }
   });
 
-  // mainWindow.webContents.openDevTools(); // 開発者ツールを自動的に開く
-
-  // ウィンドウがフォーカスを失ったときに非表示にする
+  // ウィンドウがフォーカスを失ったときに close ボタンを非表示にする
   mainWindow.on("blur", () => {
     if (!settingsWindow.isFocused()) {
       settingsWindow.hide();
-      mainWindow.show();
     }
+    mainWindow.webContents.send("update-content", {
+      message: { command: "blur" },
+    });
+  });
+
+  // ウィンドウがフォーカスされたときに close ボタンを表示する
+  mainWindow.on("focus", () => {
+    mainWindow.webContents.send("update-content", {
+      message: { command: "focus" },
+    });
+    mainWindow.setAlwaysOnTop(true, "normal");
   });
 }
 
@@ -64,8 +72,6 @@ function createSettingsWindow() {
   });
   settingsWindow.loadFile(path.join(__dirname, "settings.html"));
 
-  // settingsWindow.webContents.openDevTools(); // 開発者ツールを自動的に開く
-
   // ウィンドウがフォーカスを失ったときに非表示にする
   settingsWindow.on("blur", () => {
     if (!mainWindow.isFocused()) {
@@ -80,6 +86,8 @@ function createSettingsWindow() {
       app.quit();
     }
   });
+
+  showSettingsWindow();
 }
 
 function showSettingsWindow() {
@@ -157,9 +165,8 @@ app.whenReady().then(() => {
     }
   });
 
-  ipcMain.handle("read-directory", async (event, directory) => {
+  ipcMain.handle("read-directory", async (event, directoryPath) => {
     try {
-      const directoryPath = path.join(__appPath, directory);
       const files = fs.readdirSync(directoryPath);
       return files;
     } catch (err) {
@@ -170,13 +177,14 @@ app.whenReady().then(() => {
 
   ipcMain.handle("get-path", async (event, directory, filename = null) => {
     try {
+      let appPath = __appPath;
+      if (__appPath.includes("app.asar")) {
+        appPath = path.join(__appPath, "../..");
+      }
       if (filename != null) {
-        return path.join(__appPath, directory, filename);
+        return path.join(appPath, directory, filename);
       } else {
-        if (__appPath.includes("app.asar")) {
-          return path.join(__appPath, "../..", directory);
-        }
-        return path.join(__appPath, directory);
+        return path.join(appPath, directory);
       }
     } catch (err) {
       console.error("Error getting file path:", err);
@@ -184,21 +192,29 @@ app.whenReady().then(() => {
     }
   });
 
-  ipcMain.handle("set-visibility", async (event, visible) => {
-    try {
-      if (visible) {
-        mainWindow.show();
-      } else {
-        mainWindow.hide();
-      }
-    } catch (err) {
-      console.error("Error set visibility:", err);
-      throw err;
-    }
+  ipcMain.handle("show-settings-window", async (event) => {
+    showSettingsWindow();
   });
 
   ipcMain.handle("open-folder", async (event, path) => {
     shell.openPath(path);
+  });
+
+  ipcMain.handle("quit-application", async (event) => {
+    app.quit();
+  });
+
+  ipcMain.handle("open-dev-tools", async (event, window) => {
+    switch (window) {
+      case "index.js":
+        mainWindow.webContents.openDevTools();
+        break;
+      case "settings.js":
+        settingsWindow.webContents.openDevTools();
+        break;
+      default:
+        break;
+    }
   });
 
   ipcMain.on("update-index", (event, data) => {

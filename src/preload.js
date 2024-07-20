@@ -8,9 +8,13 @@ contextBridge.exposeInMainWorld("electronAPI", {
   sendToIndex: (data) => ipcRenderer.send("update-index", data),
   onUpdateContent: (callback) =>
     ipcRenderer.on("update-content", (event, data) => callback(data)),
-  readDirectory: (directory) => ipcRenderer.invoke("read-directory", directory),
+  readDirectory: (directoryPath) =>
+    ipcRenderer.invoke("read-directory", directoryPath),
   getPath: (directory, filename) =>
     ipcRenderer.invoke("get-path", directory, filename),
   setVisibility: (visible) => ipcRenderer.invoke("set-visibility", visible),
   openFolder: (path) => ipcRenderer.invoke("open-folder", path),
+  showSettingsWindow: () => ipcRenderer.invoke("show-settings-window"),
+  quitApplication: () => ipcRenderer.invoke("quit-application"),
+  openDevTools: (window) => ipcRenderer.invoke("open-dev-tools", window),
 });

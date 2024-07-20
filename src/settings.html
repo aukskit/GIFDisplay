@@ -38,6 +38,10 @@
       .clickable {
         cursor: pointer;
       }
+
+      .slider {
+          width: 50%;
+      }
     </style>
   </head>
 
@@ -54,19 +58,11 @@
       </select>
       <span id="folder" class="clickable">📁</span>
       <p>
-      <span>Size
-      <select id="size">
-        <option>120</option>
-        <option>240</option>
-        <option>360</option>
-        <option>480</option>
-        <option>600</option>
-        <option>720</option>
-        <option>840</option>
-        <option>960</option>
-        <option>1080</option>
-        <option>1200</option>
-      </select>
+      <span>Size:
+      <input id="size-slider" type="range" min="1" max="1000" value="240" class="slider" >
+      <p>
+      <span>Show close button:
+        <input type="checkbox" id="enable-close-button" />
       <p>
       <hr>
       <div class="column-container">
@@ -74,7 +70,6 @@
       </div>
       <div class="row-container">
         <button id="start">START</button>
-        <button id="clear">CLEAR</button>
       </div>
     </div>
     <script src="settings.js"></script>

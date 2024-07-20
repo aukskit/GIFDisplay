@@ -1,4 +1,5 @@
 {
   "size": "240",
-  "file": "NyanCat.gif"
+  "file": "NyanCat.gif",
+  "enableCloseButton": false
 }

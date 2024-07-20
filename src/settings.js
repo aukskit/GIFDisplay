@@ -5,22 +5,11 @@ if (Context === undefined) {
   Context = function () {
     this.init = function () {
       // Size
-      let size = document.getElementById("size");
-      this.load(["size"]).then((value) => {
-        if (value.size == undefined) {
-          this.save("size", "240");
-        } else {
-          var options = Array.from(size.options);
-          options.forEach((option, index) => {
-            if (option.value == value.size) {
-              size.selectedIndex = index;
-            }
-          });
-        }
-      });
-
-      size.addEventListener("change", (event) => {
-        this.handleSizeChanged(event).catch(console.error);
+      let size = document.getElementById("size-slider");
+      this.load(["size"]).then((value) => {});
+      size.addEventListener("input", (event) => {
+        this.save("size", size.value);
+        this.sendCommand("resize");
       });
 
       // File
@@ -56,16 +45,35 @@ if (Context === undefined) {
         this.setImage();
       });
 
-      // Clear
-      let clear = document.getElementById("clear");
-      clear.addEventListener("click", (event) => {
-        this.sendCommand("clear");
+      // Enable close button
+      let enableCloseButton = document.getElementById("enable-close-button");
+      this.load(["enableCloseButton"]).then((value) => {
+        if (value.enableCloseButton == undefined) {
+          this.save("enableCloseButton", false);
+        } else {
+          enableCloseButton.checked = value.enableCloseButton;
+        }
+      });
+      enableCloseButton.addEventListener("input", (event) => {
+        if (enableCloseButton.checked) {
+          this.sendCommand("enable-close-button");
+        } else {
+          this.sendCommand("disable-close-button");
+        }
+        this.save("enableCloseButton", enableCloseButton.checked);
       });
 
       // Folder
       let folder = document.getElementById("folder");
       folder.addEventListener("click", (event) => {
         this.openFolder();
+      });
+
+      // Key Down Event
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "F12") {
+          window.electronAPI.openDevTools("settings.js");
+        }
       });
     };
 
@@ -106,9 +114,10 @@ if (Context === undefined) {
 
     this.readImages = async function () {
       try {
-        const result = await window.electronAPI.readDirectory(
+        const imageDirectory = await window.electronAPI.getPath(
           "resources/images"
         );
+        const result = await window.electronAPI.readDirectory(imageDirectory);
         return result;
       } catch (err) {
         console.error("Error reading images folder:", err);
@@ -121,6 +130,7 @@ if (Context === undefined) {
         window.electronAPI
           .getPath("resources/images", value.file)
           .then((imageUrl) => {
+            console.log(imageUrl);
             image.src = imageUrl;
           });
       });
