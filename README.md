@@ -52,3 +52,7 @@ Before you begin, ensure you have met the following requirements:
    This command needs to be executed in a Command Prompt running as an administrator.
 
 1. Run the `GIFDisplay Setup 1.0.0.exe` located in the dist folder.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

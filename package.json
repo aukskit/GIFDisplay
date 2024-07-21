@@ -39,8 +39,8 @@
     ]
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "aukskit",
+  "license": "MIT",
   "devDependencies": {
     "electron": "^31.2.1",
     "electron-builder": "^24.13.3",
