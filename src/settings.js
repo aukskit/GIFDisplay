@@ -5,7 +5,7 @@ if (Context === undefined) {
   Context = function () {
     this.init = function () {
       // Size
-      let size = document.getElementById("size-slider");
+      const size = document.getElementById("size-slider");
       this.load(["size"]).then((value) => {});
       size.addEventListener("input", (event) => {
         this.save("size", size.value);
@@ -13,7 +13,7 @@ if (Context === undefined) {
       });
 
       // File
-      var file = document.getElementById("file");
+      const file = document.getElementById("file");
       this.readImages().then((fileNames) => {
         if (fileNames == undefined) {
         } else {
@@ -39,32 +39,29 @@ if (Context === undefined) {
       this.sendCommand("start");
 
       // Start
-      let start = document.getElementById("start");
+      const start = document.getElementById("start");
       start.addEventListener("click", (event) => {
         this.sendCommand("start");
         this.setImage();
       });
 
       // Enable close button
-      let enableCloseButton = document.getElementById("enable-close-button");
+      const enableCloseButton = document.getElementById("enable-close-button");
       this.load(["enableCloseButton"]).then((value) => {
         if (value.enableCloseButton == undefined) {
           this.save("enableCloseButton", false);
         } else {
           enableCloseButton.checked = value.enableCloseButton;
         }
+        sendCloseButtonEnableCommand(enableCloseButton.checked);
       });
       enableCloseButton.addEventListener("input", (event) => {
-        if (enableCloseButton.checked) {
-          this.sendCommand("enable-close-button");
-        } else {
-          this.sendCommand("disable-close-button");
-        }
         this.save("enableCloseButton", enableCloseButton.checked);
+        sendCloseButtonEnableCommand(enableCloseButton.checked);
       });
 
       // Folder
-      let folder = document.getElementById("folder");
+      const folder = document.getElementById("folder");
       folder.addEventListener("click", (event) => {
         this.openFolder();
       });
@@ -84,7 +81,6 @@ if (Context === undefined) {
     this.handleFileChanged = async function (event) {
       var filename = event.target.value;
       this.save("file", filename);
-      console.log("File saved as", filename);
       const imageUrl = await window.electronAPI.getPath(
         "resources/images",
         filename
@@ -130,7 +126,6 @@ if (Context === undefined) {
         window.electronAPI
           .getPath("resources/images", value.file)
           .then((imageUrl) => {
-            console.log(imageUrl);
             image.src = imageUrl;
           });
       });
@@ -148,8 +143,14 @@ if (Context === undefined) {
       const imagesFolderPath = await window.electronAPI.getPath(
         "resources/images"
       );
-      // console.log(imagesFolderPath);
       window.electronAPI.openFolder(imagesFolderPath);
+    };
+
+    this.sendCloseButtonEnableCommand = async function (checked) {
+      const data = {
+        message: { command: "enable-close-button", checked: checked },
+      };
+      window.electronAPI.sendToIndex(data);
     };
 
     return this;

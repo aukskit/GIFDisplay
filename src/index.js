@@ -21,7 +21,7 @@ function init() {
 }
 
 function setGif(size, file) {
-  let gif = document.getElementById("gif");
+  const gif = document.getElementById("gif");
   window.electronAPI.getPath("resources/images", file).then((imageUrl) => {
     gif.src = imageUrl;
   });
@@ -41,7 +41,7 @@ function resetGif() {
 }
 
 function resizeGif(size) {
-  let gif = document.getElementById("gif");
+  const gif = document.getElementById("gif");
   const ratio = gif.naturalWidth / gif.naturalHeight;
   gif.width = size;
   gif.height = size / ratio;
@@ -85,12 +85,8 @@ window.electronAPI.onUpdateContent((data) => {
       enableCloseButton(false);
       break;
     case "enable-close-button":
-      isCloseButtonEnabled = true;
-      enableCloseButton(true);
-      break;
-    case "disable-close-button":
-      isCloseButtonEnabled = false;
-      enableCloseButton(false);
+      isCloseButtonEnabled = data.message.checked;
+      enableCloseButton(data.message.checked);
       break;
     default:
       // window.alert("Unknown command:", command);
