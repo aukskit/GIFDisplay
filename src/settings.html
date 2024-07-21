@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gif Display</title>
+    <style>
+      body {
+        min-width: 300px;
+        font-size: 15px;
+      }
+
+      input {
+        margin: 5px;
+        outline: none;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #303030;
+          color: #fff;
+        }
+      }
+
+      .column-container {
+        display: flex;
+        flex-direction: column; /* 縦方向に配置 */
+        justify-content: center; /* 水平方向の中央揃え */
+        align-items: center; /* 垂直方向の中央揃え */
+      }
+
+      .row-container {
+        display: flex;
+        flex-direction: row; /* 縦方向に配置 */
+        justify-content: center; /* 水平方向の中央揃え */
+        align-items: center; /* 垂直方向の中央揃え */
+        gap: 10px;
+      }
+
+      .clickable {
+        cursor: pointer;
+      }
+
+      .slider {
+          width: 50%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>
+      <img id="icon" src="../resources/icon/favicon.ico" width="40"/>
+      Gif Display
+    </h1>
+    <hr color="#EEEEEE" />
+    <h3>Settings</h3>
+    <div>
+      <span>File:
+      <select id="file">
+      </select>
+      <span id="folder" class="clickable">📁</span>
+      <p>
+      <span>Size:
+      <input id="size-slider" type="range" min="1" max="1000" value="240" class="slider" >
+      <p>
+      <span>Show close button:
+        <input type="checkbox" id="enable-close-button" />
+      <p>
+      <hr>
+      <div class="column-container">
+        <img id="image" width="200"/>
+      </div>
+      <div class="row-container">
+        <button id="start">START</button>
+      </div>
+    </div>
+    <script src="settings.js"></script>
+  </body>
+</html>

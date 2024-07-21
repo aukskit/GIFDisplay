@@ -1,0 +1,5 @@
+node_modules
+resources/images/*
+resources/userData/*
+dist
+package-lock.json
