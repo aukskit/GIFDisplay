@@ -6,7 +6,14 @@ This application displays GIF on your desktop. It is built with Electron and sup
 
 ## Screenshot
 
-![](images/screenshot.png)
+![](images/screenshot.gif)
+
+## How To Use
+
+1. Download the latest release of the application from the [Releases](https://github.com/aukskit/GIFDisplay/releases/) page.
+1. Locate the file named `GIFDisplay.1.x.x.exe` or `GIFDisplay.Setup.1.0.0.exe` in the downloaded folder.
+1. Double-click the `GIFDisplay.1.x.x.exe` file to run the application directly, or double-click the `GIFDisplay.Setup.1.0.0.exe` file to install the application.
+1. You can display your desired GIF by placing it in a specific folder, which you can open by clicking the folder icon (📁) in the settings window. A restart of the application is required after adding the GIF.
 
 ## Keyboard Shortcuts
 
@@ -15,19 +22,15 @@ This application displays GIF on your desktop. It is built with Electron and sup
 | Open setting     | `s`   |
 | Quit application | `esc` |
 
-## Releases
-
-You can find all releases [here](https://github.com/aukskit/GIFDisplay/releases/).
+# For Developers
 
 ## Prerequisites
-
-Before you begin, ensure you have met the following requirements:
 
 - Node.js (version 20.11.1 or higher)
 - npm (version 10.2.4 or higher)
 - Git (for cloning the repository)
 
-## Development Setup
+## Getting Started
 
 1. Clone the repository:
 
