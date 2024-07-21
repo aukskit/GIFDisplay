@@ -1,4 +1,4 @@
-# GIFDisplay
+# <img src="resources/icon/favicon.ico" width=48> GIFDisplay
 
 ## Overview
 
@@ -10,6 +10,10 @@ This application displays GIFs on your desktop. It is built with Electron and su
 | ---------------- | ----- |
 | Open setting     | `s`   |
 | Quit application | `esc` |
+
+## Releases
+
+You can find all releases [here](https://github.com/aukskit/GIFDisplay/releases/).
 
 ## Prerequisites
 
