@@ -2,7 +2,11 @@
 
 ## Overview
 
-This application displays GIFs on your desktop. It is built with Electron and supports cross-platform compatibility.
+This application displays GIF on your desktop. It is built with Electron and supports cross-platform compatibility.
+
+## Screenshot
+
+![](images/screenshot.png)
 
 ## Keyboard Shortcuts
 
