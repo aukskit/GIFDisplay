@@ -9,6 +9,8 @@ function init() {
       window.electronAPI.showSettingsWindow();
     } else if (event.key === "F12") {
       window.electronAPI.openDevTools("index.js");
+    } else if (event.key === "Escape") {
+      window.electronAPI.quitApplication();
     }
   });
 

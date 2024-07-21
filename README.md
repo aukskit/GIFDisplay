@@ -4,9 +4,12 @@
 
 This application displays GIFs on your desktop. It is built with Electron and supports cross-platform compatibility.
 
-## Screenshots
+## Keyboard Shortcuts
 
-TODO: add screenshot to explain how to use
+| Description      | Keys  |
+| ---------------- | ----- |
+| Open setting     | `s`   |
+| Quit application | `esc` |
 
 ## Prerequisites
 

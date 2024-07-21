@@ -70,6 +70,8 @@ if (Context === undefined) {
       window.addEventListener("keydown", (event) => {
         if (event.key === "F12") {
           window.electronAPI.openDevTools("settings.js");
+        } else if (event.key === "Escape") {
+          window.electronAPI.quitApplication();
         }
       });
     };
